@@ -60,6 +60,37 @@ export default function DataTable({ filteredData }) {
     }
   };
 
+  const getVisiblePages = () => {
+    const pages = [];
+    const maxVisible = 5; // Max page buttons to display
+    
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      
+      if (start > 2) {
+        pages.push('...');
+      }
+      
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      
+      if (end < totalPages - 1) {
+        pages.push('...');
+      }
+      
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
   const formatCurrency = (val) => {
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
@@ -193,36 +224,45 @@ export default function DataTable({ filteredData }) {
 
       {/* PAGINATION CONTROLS */}
       {totalPages > 1 && (
-        <div className="flex justify-between items-center mt-4">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6 pt-4 border-t border-slate-700/30">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 bg-slate-700/50 hover:bg-slate-700 disabled:opacity-30 disabled:hover:bg-slate-700/50 border border-slate-600/30 transition-all active:scale-95"
+            className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 bg-slate-700/50 hover:bg-slate-700 disabled:opacity-30 disabled:hover:bg-slate-700/50 border border-slate-600/30 transition-all active:scale-95 cursor-pointer"
           >
             <ChevronLeft size={14} />
             <span>Anterior</span>
           </button>
           
-          <div className="flex items-center gap-1.5">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`w-7 h-7 rounded-lg text-xs font-bold transition-all border ${
-                  currentPage === page
-                    ? 'bg-blue-500 text-white border-blue-500/50 shadow-md shadow-blue-500/10'
-                    : 'text-slate-400 bg-slate-900/30 border-slate-700/50 hover:bg-slate-700 hover:text-white'
-                }`}
-              >
-                {page}
-              </button>
-            ))}
+          <div className="flex flex-wrap items-center justify-center gap-1">
+            {getVisiblePages().map((page, idx) => {
+              if (page === '...') {
+                return (
+                  <span key={`ellipsis-${idx}`} className="px-2.5 py-1 text-xs font-semibold text-slate-500">
+                    ...
+                  </span>
+                );
+              }
+              return (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`w-8 h-8 rounded-lg text-xs font-bold transition-all border ${
+                    currentPage === page
+                      ? 'bg-blue-500 text-white border-blue-500/50 shadow-md shadow-blue-500/10 font-bold'
+                      : 'text-slate-400 bg-slate-900/30 border-slate-700/50 hover:bg-slate-700 hover:text-white cursor-pointer'
+                  }`}
+                >
+                  {page}
+                </button>
+              );
+            })}
           </div>
 
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 bg-slate-700/50 hover:bg-slate-700 disabled:opacity-30 disabled:hover:bg-slate-700/50 border border-slate-600/30 transition-all active:scale-95"
+            className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 bg-slate-700/50 hover:bg-slate-700 disabled:opacity-30 disabled:hover:bg-slate-700/50 border border-slate-600/30 transition-all active:scale-95 cursor-pointer"
           >
             <span>Siguiente</span>
             <ChevronRight size={14} />
