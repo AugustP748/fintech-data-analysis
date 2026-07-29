@@ -240,6 +240,8 @@ export default function Charts({ filteredData }) {
                         <Tooltip 
                           contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '12px' }}
                           labelFormatter={(value) => `Edad Central: ${value} años`}
+                          labelStyle={{ color: '#94a3b8', fontWeight: 'bold' }}
+                          itemStyle={{ color: '#e2e8f0' }}
                         />
                         <Legend />
                         <Area type="monotone" dataKey="Al día" stroke="#10b981" fill="#10b981" fillOpacity={0.1} strokeWidth={2.5} />
@@ -261,6 +263,8 @@ export default function Charts({ filteredData }) {
                         <Tooltip 
                           contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '12px' }}
                           labelFormatter={(value) => `Ingreso Central: ${value}k ARS`}
+                          labelStyle={{ color: '#94a3b8', fontWeight: 'bold' }}
+                          itemStyle={{ color: '#e2e8f0' }}
                         />
                         <Legend />
                         <Area type="monotone" dataKey="Al día" stroke="#10b981" fill="#10b981" fillOpacity={0.1} strokeWidth={2.5} />
@@ -285,6 +289,8 @@ export default function Charts({ filteredData }) {
                         <Tooltip 
                           contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '12px' }}
                           formatter={(value) => [formatCurrency(value), 'Ingreso Medio']}
+                          labelStyle={{ color: '#94a3b8', fontWeight: 'bold' }}
+                          itemStyle={{ color: '#e2e8f0' }}
                         />
                         <Bar dataKey="valor">
                           {averagesData.ingreso.map((entry, index) => (
@@ -308,6 +314,8 @@ export default function Charts({ filteredData }) {
                         <Tooltip 
                           contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '12px' }}
                           formatter={(value) => [value, 'Score Medio']}
+                          labelStyle={{ color: '#94a3b8', fontWeight: 'bold' }}
+                          itemStyle={{ color: '#e2e8f0' }}
                         />
                         <Bar dataKey="valor">
                           {averagesData.score.map((entry, index) => (
@@ -393,6 +401,8 @@ export default function Charts({ filteredData }) {
                       <Tooltip 
                         contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '12px' }}
                         formatter={(value) => [`${value}%`, 'Tasa de Mora']}
+                        labelStyle={{ color: '#94a3b8', fontWeight: 'bold' }}
+                        itemStyle={{ color: '#e2e8f0' }}
                       />
                       <Bar dataKey="tasa">
                         {categoryRates.zonaRates.map((entry, index) => (
@@ -420,6 +430,8 @@ export default function Charts({ filteredData }) {
                       <Tooltip 
                         contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '12px' }}
                         formatter={(value) => [`${value}%`, 'Tasa de Mora']}
+                        labelStyle={{ color: '#94a3b8', fontWeight: 'bold' }}
+                        itemStyle={{ color: '#e2e8f0' }}
                       />
                       <Bar dataKey="tasa">
                         {categoryRates.histRates.map((entry, index) => (
